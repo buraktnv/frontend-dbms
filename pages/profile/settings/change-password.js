@@ -45,7 +45,7 @@ const changePassword = () => {
   return (
     <div>
       <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
-        <form
+        <div
           action={changePassword}
           className="max-w-md mx-auto mt-8 mb-0 space-y-4"
         >
@@ -179,7 +179,7 @@ const changePassword = () => {
               Değişikliği Kaydet
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

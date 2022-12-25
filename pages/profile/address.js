@@ -1,7 +1,161 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSpring, animated } from "@react-spring/web";
 
 const address = () => {
-  return <div>address</div>;
+  const [modal, setModal] = useState(true);
+  return (
+    <div>
+      <div className="flex justify-between px-4">
+        <h2>Adreslerim</h2>
+        <button
+          className="px-4 py-2 text-gray-700 underline rounded-full"
+          onClick={() => setModal((e) => !e)}
+        >
+          Adres Ekle
+        </button>
+      </div>
+      {modal && <Modal />}
+      <Table />
+    </div>
+  );
+};
+
+const Modal = ({ content, closeModal }) => {
+  const springs = useSpring({
+    from: { y: -10, opacity: 0, height: "0px", backgroundColor: "#FFF" },
+    to: { y: 0, opacity: 1, height: "380px", backgroundColor: "#000" },
+    config: {
+      mass: 10,
+      friction: 80,
+    },
+  });
+  return (
+    <animated.div style={{ ...springs }}>
+      <div className="z-40 max-w-5xl mx-auto my-auto rounded h-96">
+        <div>demo</div>
+        <h3>Modal</h3>
+      </div>
+    </animated.div>
+  );
+};
+
+const Input = ({content, handleChange}) => {
+  return (
+    <div>
+      <label htmlFor={content.id} className="block text-xs font-medium text-gray-700">
+        {content.label}
+      </label>
+
+      <input
+        type={content.type}
+        id={content.id}
+        placeholder={content.placeholder}
+        onChange={handleChange}
+        className="w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm"
+      />
+    </div>
+  );
+};
+
+const TableHead = () => {
+  return (
+    <thead className="bg-gray-100">
+      <tr>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          Adres Başlığı
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          Ad
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          Soyad
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          Telefon
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          İl
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          İlçe
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          Mahalle
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          Adres
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          Sil
+        </th>
+        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
+          Düzenle
+        </th>
+      </tr>
+    </thead>
+  );
+};
+
+const Table = ({
+  tableData = [
+    {
+      addressName: "Ev",
+      name: "Burak",
+      surname: "Tanrıverdi",
+      telNo: "+90 545 677 37 12",
+      city: "Kırklareli",
+      town: "Merkez",
+      neighborhood: "Bademlik Mahallesi",
+      address:
+        "Kırklareli-Babaeski Karahalil Birlik Mahallesi Zübeyde Hanım caddesi No:15",
+    },
+  ],
+}) => {
+  return (
+    <div className="mx-auto overflow-x-auto">
+      <table className="min-w-full text-sm divide-y divide-gray-200">
+        <TableHead />
+        <tbody className="divide-y divide-gray-200">
+          {tableData.map((content) => {
+            return (
+              <tr>
+                <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                  {content?.addressName}
+                </td>
+                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                  {content?.name}
+                </td>
+                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                  {content?.surname}
+                </td>
+                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                  {content?.telNo}
+                </td>
+                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                  {content?.city}
+                </td>
+                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                  {content?.town}
+                </td>
+                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                  {content?.neighborhood}
+                </td>
+                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                  {content?.address}
+                </td>
+                <td className="px-4 py-2 font-medium">
+                  <button className="text-red-600">Sil</button>
+                </td>
+                <td className="w-full px-4 py-2 font-medium">
+                  <button className="text-red-600">Düzenle</button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default address;

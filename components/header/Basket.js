@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useBasketContext } from "../../helpers/contexts/BasketContext";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +7,9 @@ import { useSpring, animated } from "@react-spring/web";
 const Basket = ({ CloseBasket }) => {
   const basket = useBasketContext();
 
+  const [loading, setLoading] = useState(false);
+
+  const [basketItems, setBasketItems] = useState([...basket.basket]);
   const springs = useSpring({
     from: { y: -10, opacity: 0 },
     to: { y: 0, opacity: 1 },
@@ -26,11 +29,27 @@ const Basket = ({ CloseBasket }) => {
     console.log(basket);
   }, []);
 
+  function timeout(delay) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
+  const myFunc = async () => {
+    setBasketItems([]);
+    setLoading(true);
+    await timeout(1);
+    setBasketItems([...basket.basket]);
+    setLoading(false);
+    console.log("basket:", basketItems);
+  };
+
+  useEffect(() => {
+    myFunc();
+  }, [basket.basket]);
+
   console.log(basket);
   return (
     <animated.div style={{ ...springs }}>
       <div
-        className="w-screen max-w-sm p-8 pt-4 bg-gray-50 border border-gray-200 rounded"
+        className="w-screen max-w-sm p-8 pt-4 border border-gray-200 rounded bg-gray-50"
         aria-modal="true"
         role="dialog"
         tabindex="-1"
@@ -60,13 +79,20 @@ const Basket = ({ CloseBasket }) => {
 
         <div className="mt-6 space-y-6">
           <ul className="space-y-4">
-            {basket.basket.length == 0 ? (
+            {loading ? (
+              <div className={`h-[${basket?.basket?.length}]`}></div>
+            ) : basketItems.length == 0 ? (
               <div className="font-semibold text-center text-gray-600">
                 Sepet Boş
               </div>
             ) : (
-              basket.basket.map((item, index) => {
-                return <BaskedItem content={item} />;
+              basketItems.map((item, index) => {
+                return (
+                  <BaskedItem
+                    key={index + Math.random * 10000}
+                    content={item}
+                  />
+                );
               })
             )}
           </ul>
@@ -93,6 +119,10 @@ const BaskedItem = ({ content }) => {
   const springs = useSpring({
     from: { y: -10, opacity: 0 },
     to: { y: 0, opacity: 1 },
+    config: {
+      mass: 1,
+      friction: 60,
+    },
   });
 
   const handleChange = (e) => {
@@ -127,7 +157,7 @@ const BaskedItem = ({ content }) => {
         </dl>
       </div>
       <div className="flex items-center justify-end flex-1 gap-2">
-        <form>
+        <div>
           <label htmlFor="Line1Qty" className="sr-only">
             Quantity
           </label>
@@ -140,7 +170,7 @@ const BaskedItem = ({ content }) => {
             id="Line1Qty"
             className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
           />
-        </form>
+        </div>
 
         <button
           className="text-gray-600 transition hover:text-red-600"

@@ -146,7 +146,7 @@ const Product = ({
                 </div>
               </details>
 
-              <form className="mt-8">
+              <div className="mt-8">
                 <fieldset>
                   <legend className="mb-1 text-sm font-medium">Renk</legend>
 
@@ -228,7 +228,7 @@ const Product = ({
                     Add to Cart
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

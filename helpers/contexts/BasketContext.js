@@ -32,8 +32,9 @@ export const BasketProvider = ({ children }) => {
   };
 
   const removeItemById = (item) => {
+    console.log(basket);
     setBasket((prev) => {
-      const firstMatch = prev.filter((el) => el.id === item.id);
+      const firstMatch = prev.filter((el) => el.basket_id === item.basket_id);
       if (firstMatch?.length > 0) {
         return prev.filter((el) => el.basket_id !== firstMatch[0].basket_id);
       } else {

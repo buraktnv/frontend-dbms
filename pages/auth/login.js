@@ -36,7 +36,7 @@ const Login = () => {
           </p>
         </div>
 
-        <form action={login} className="max-w-md mx-auto mt-8 mb-0 space-y-4">
+        <div className="max-w-md mx-auto mt-8 mb-0 space-y-4">
           <div>
             <label htmlFor="email" className="sr-only">
               Email
@@ -129,7 +129,7 @@ const Login = () => {
               Giriş Yap
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

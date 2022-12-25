@@ -38,7 +38,7 @@ const index = () => {
                   </div>
 
                   <div className="flex items-center justify-end flex-1 gap-2">
-                    <form>
+                    <div>
                       <label htmlFor="Line1Qty" className="sr-only">
                         {" "}
                         Quantity{" "}
@@ -51,7 +51,7 @@ const index = () => {
                         id="Line1Qty"
                         className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                       />
-                    </form>
+                    </div>
 
                     <button className="text-gray-600 transition hover:text-red-600">
                       <span className="sr-only">Remove item</span>
@@ -98,7 +98,7 @@ const index = () => {
                   </div>
 
                   <div className="flex items-center justify-end flex-1 gap-2">
-                    <form>
+                    <div>
                       <label htmlFor="Line2Qty" className="sr-only">
                         {" "}
                         Quantity{" "}
@@ -111,7 +111,7 @@ const index = () => {
                         id="Line2Qty"
                         className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                       />
-                    </form>
+                    </div>
 
                     <button className="text-gray-600 transition hover:text-red-600">
                       <span className="sr-only">Remove item</span>
@@ -158,7 +158,7 @@ const index = () => {
                   </div>
 
                   <div className="flex items-center justify-end flex-1 gap-2">
-                    <form>
+                    <div>
                       <label htmlFor="Line3Qty" className="sr-only">
                         {" "}
                         Quantity{" "}
@@ -171,7 +171,7 @@ const index = () => {
                         id="Line3Qty"
                         className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                       />
-                    </form>
+                    </div>
 
                     <button className="text-gray-600 transition hover:text-red-600">
                       <span className="sr-only">Remove item</span>

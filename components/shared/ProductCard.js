@@ -1,16 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useBasketContext } from "../../helpers/contexts/BasketContext";
 
 const ProductCard = ({
   content = {
     id: "1",
     name: "Ürün Adı",
-    img: "https://images.unsplash.com/photo-1599481238640-4c1288750d7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2664&q=80",
+    image:
+      "https://images.unsplash.com/photo-1599481238640-4c1288750d7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2664&q=80",
     price: "120₺",
     favorite: Math.round(Math.random()) == 1,
+    size: "XXL",
+    quantity: 1,
+    color: "Mor",
   },
 }) => {
+  const { addItem } = useBasketContext();
   return (
     <div className="relative">
       <button
@@ -40,7 +46,7 @@ const ProductCard = ({
       >
         <div className="relative w-full h-64 sm:h-72">
           <Image
-            src={content.img}
+            src={content.image}
             alt=""
             fill
             className="object-cover transition duration-500 group-hover:scale-105"
@@ -59,11 +65,14 @@ const ProductCard = ({
 
         <p className="mt-1.5 text-sm text-gray-700">{content.price}</p>
 
-        <form className="mt-4" onClick={() => alert("Sepete Eklendi!")}>
-          <button className="block w-full p-4 text-sm font-medium text-white transition bg-orange-600 rounded hover:scale-105">
+        <div className="mt-4">
+          <button
+            onClick={() => addItem(content)}
+            className="block w-full p-4 text-sm font-medium text-white transition bg-orange-600 rounded hover:scale-105"
+          >
             Sepete Ekle
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
