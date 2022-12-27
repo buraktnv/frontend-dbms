@@ -4,8 +4,8 @@ import { useSpring, animated } from "@react-spring/web";
 const address = () => {
   const [modal, setModal] = useState(true);
   return (
-    <div>
-      <div className="flex justify-between px-4">
+    <div className="max-w-6xl mx-auto">
+      <div className="flex justify-between max-w-6xl px-4">
         <h2>Adreslerim</h2>
         <button
           className="px-4 py-2 text-gray-700 underline rounded-full"
@@ -14,35 +14,135 @@ const address = () => {
           Adres Ekle
         </button>
       </div>
-      {modal && <Modal />}
+      {modal && <Modal closeModal={() => setModal(false)} />}
       <Table />
     </div>
   );
 };
 
-const Modal = ({ content, closeModal }) => {
+const Modal = ({ closeModal }) => {
+  const [addressData, setAddressDate] = useState({});
   const springs = useSpring({
-    from: { y: -10, opacity: 0, height: "0px", backgroundColor: "#FFF" },
-    to: { y: 0, opacity: 1, height: "380px", backgroundColor: "#000" },
+    from: { y: -430, opacity: 0, height: "0px" },
+    to: { y: 0, opacity: 1, height: "430px" },
     config: {
       mass: 10,
       friction: 80,
     },
   });
+
+  const handleChange = (e) => {
+    setAddressDate((pre) => {
+      return { ...pre, [e.target.id]: e.target.value };
+    });
+  };
+
+  const submit = () => {
+    closeModal();
+  };
+
+  console.log(addressData);
   return (
     <animated.div style={{ ...springs }}>
-      <div className="z-40 max-w-5xl mx-auto my-auto rounded h-96">
-        <div>demo</div>
-        <h3>Modal</h3>
+      <div className="z-40 flex flex-col max-w-6xl gap-4 mx-auto my-auto bg-white">
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            content={{
+              label: "Adres Başlığı",
+              type: "text",
+              id: "addressName",
+              placeholder: "Adres başlığını giriniz.",
+            }}
+            handleChange={handleChange}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            content={{
+              label: "İsim",
+              type: "text",
+              id: "name",
+              placeholder: "İsminizi giriniz.",
+            }}
+            handleChange={handleChange}
+          />
+          <Input
+            content={{
+              label: "Soyisim",
+              type: "text",
+              id: "surname",
+              placeholder: "Soyisminizi giriniz.",
+            }}
+            handleChange={handleChange}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            content={{
+              label: "Telefon Numarası",
+              type: "text",
+              id: "telNo",
+              placeholder: "Telefon numaranızı giriniz.",
+            }}
+            handleChange={handleChange}
+          />
+          <Input
+            content={{
+              label: "Şehir",
+              type: "text",
+              id: "city",
+              placeholder: "Şehir bilginizi giriniz.",
+            }}
+            handleChange={handleChange}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            content={{
+              label: "İlçe",
+              type: "text",
+              id: "town",
+              placeholder: "İlçe bilginizi giriniz.",
+            }}
+            handleChange={handleChange}
+          />
+          <Input
+            content={{
+              label: "Mahalle",
+              type: "text",
+              id: "neighborhood",
+              placeholder: "Mahalle bilginizi giriniz.",
+            }}
+            handleChange={handleChange}
+          />
+        </div>
+        <Input
+          content={{
+            label: "Adres",
+            type: "text",
+            id: "address",
+            placeholder: "Adresinizi giriniz.",
+          }}
+          handleChange={handleChange}
+        />
+        <button
+          onClick={submit}
+          className="px-8 py-1 text-gray-700 transition border rounded-full shadow hover:bg-gray-50 w-max"
+        >
+          Ekle
+        </button>
       </div>
     </animated.div>
   );
 };
 
-const Input = ({content, handleChange}) => {
+const Input = ({ content, handleChange }) => {
   return (
     <div>
-      <label htmlFor={content.id} className="block text-xs font-medium text-gray-700">
+      <label
+        htmlFor={content.id}
+        className="block text-xs font-medium text-gray-700"
+      >
         {content.label}
       </label>
 
@@ -88,9 +188,6 @@ const TableHead = () => {
         <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
           Sil
         </th>
-        <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
-          Düzenle
-        </th>
       </tr>
     </thead>
   );
@@ -99,6 +196,7 @@ const TableHead = () => {
 const Table = ({
   tableData = [
     {
+      id: Math.floor(Math.random() * 10000),
       addressName: "Ev",
       name: "Burak",
       surname: "Tanrıverdi",
@@ -137,17 +235,14 @@ const Table = ({
                 <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
                   {content?.town}
                 </td>
-                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                <td className="px-4 py-2 text-gray-700 whitespace-pre">
                   {content?.neighborhood}
                 </td>
-                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                <td className="px-4 py-2 text-gray-700 whitespace-pre-line">
                   {content?.address}
                 </td>
                 <td className="px-4 py-2 font-medium">
                   <button className="text-red-600">Sil</button>
-                </td>
-                <td className="w-full px-4 py-2 font-medium">
-                  <button className="text-red-600">Düzenle</button>
                 </td>
               </tr>
             );

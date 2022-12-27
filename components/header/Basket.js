@@ -15,6 +15,8 @@ const Basket = ({ CloseBasket }) => {
     to: { y: 0, opacity: 1 },
   });
 
+  
+
   useEffect(() => {
     basket.addItem({
       id: 1,
@@ -49,7 +51,7 @@ const Basket = ({ CloseBasket }) => {
   return (
     <animated.div style={{ ...springs }}>
       <div
-        className="w-screen max-w-sm p-8 pt-4 border border-gray-200 rounded bg-gray-50"
+        className="w-screen max-w-sm p-8 pt-4 overflow-y-scroll border border-gray-200 rounded bg-gray-50 max-h-[80vh]"
         aria-modal="true"
         role="dialog"
         tabindex="-1"

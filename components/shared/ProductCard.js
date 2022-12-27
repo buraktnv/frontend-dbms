@@ -44,7 +44,7 @@ const ProductCard = ({
         href={"/product/" + content.id}
         className="relative block overflow-hidden group"
       >
-        <div className="relative w-full h-64 sm:h-72">
+        <div className="relative w-full h-64">
           <Image
             src={content.image}
             alt=""

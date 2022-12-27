@@ -9,7 +9,9 @@ export const BasketProvider = ({ children }) => {
   const basketTotal = {
     prices:
       basket.length > 0
-        ? basket.map((el) => el.price).reduce((prev, curr) => prev + curr, 0)
+        ? basket
+            .map((el) => el.price * el.quantity)
+            .reduce((prev, curr) => prev + curr, 0)
         : 0,
   };
 
